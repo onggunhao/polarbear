@@ -3,6 +3,12 @@ import random
 import string
 import array
 import operator
+from networkx.readwrite import d3_js
+
+# CONSTANTS: ##################################
+pct_edges_to_retain = 0.02
+###############################################
+
 
 # Importing graph information
 print "Importing retweet network graph"
@@ -64,7 +70,7 @@ print "Number of nodes: " + str(retweet_network.number_of_nodes())
 # Probabilistically removes edges from the graph
 for edge in retweet_network.edges(data=True):
     to_delete = random.random()
-    if to_delete >= 0.05:
+    if to_delete >= pct_edges_to_retain:
         retweet_network.remove_edge(edge[0], edge[1])
 
 # Removes isolated nodes, calculates distribution
@@ -86,5 +92,8 @@ print "Number of nodes: " + str(retweet_network.number_of_nodes())
 
 for tag in left_right_table:
     print tag + " " + str(left_right_table[tag])
+    
+# Exports to D3.js
+d3_js.export_d3_js(retweet_network, files_dir="visualization", graphname="retweet_network", group="cluster", node_labels=False)
 
 
