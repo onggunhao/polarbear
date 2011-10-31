@@ -1,4 +1,4 @@
-var w = 960,
+var w = 962,
     h = 500,
     jnodes,
     jlinks,
@@ -41,7 +41,8 @@ d3.json("retweet_network.json", function(json) {
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; })
       .attr("r", 5)
-      .style("fill", function(d) { return fill(d.group); })
+      .style("fill", function(d) { if (d.group == "right") return "#d62728";
+        else return "#1f77b4"; })
       .call(force.drag);
 
   vis.style("opacity", 1e-6)
