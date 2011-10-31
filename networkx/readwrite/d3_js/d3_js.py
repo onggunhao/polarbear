@@ -97,17 +97,17 @@ def d3_json(G, group=None):
 	
 	# Build up node dictionary in JSON format
 	if group is None:
-		graph_json = {'nodes': map(lambda n: {'name': str(node_labels[n][1]), 'group' : 0}, xrange(len(node_labels)))}
+		graph_json = {'nodes': map(lambda n: {'name': str(node_labels[n][1]), 'group' : 0, 'tags' : graph_nodes[n][1]['tags']}, xrange(len(node_labels)))}
 	else:
 		try:
-			graph_json = {'nodes' : map(lambda n: {'name': str(node_labels[n][1]), 'group' : graph_nodes[n][1][group]}, xrange(len(node_labels)))}
+			graph_json = {'nodes' : map(lambda n: {'name': str(node_labels[n][1]), 'group' : graph_nodes[n][1][group], 'tags' : graph_nodes[n][1]['tags']}, xrange(len(node_labels)))}
 		except KeyError:
 			raise nx.NetworkXError("The graph had no node attribute for '"+group+"'")
 		
 	# Build up edge dictionary in JSON format
 	json_edges = list()
 	for j, k, w in graph_edges:
-		e = {'source' : j, 'target' : k}
+		e = {'source' : j, 'target' : k, 'tags' : eval(w['tags'])}
 		if any(map(lambda k: k=='weight', w.keys())):
 			e['value'] = w['weight']
 		else:

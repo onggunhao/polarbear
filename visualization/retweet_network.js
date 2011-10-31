@@ -28,10 +28,10 @@ d3.json("retweet_network.json", function(json) {
 
   var node = vis.selectAll("g.node")
       .data(json.nodes)
-    .enter().append("svg:circle")
+    .enter().append("svg:g")
       .attr("class", "node")
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; })
+
+  	node.append("svg:circle")
       .attr("r", 5)
       .style("fill", function(d) { return fill(d.group); })
       .call(force.drag);
@@ -47,8 +47,7 @@ d3.json("retweet_network.json", function(json) {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
     
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   });
 });
 

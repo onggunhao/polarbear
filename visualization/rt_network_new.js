@@ -4,7 +4,7 @@ var w = 960,
     jlinks,
     node,
     link,
-    fill = d3.scale.category20();
+    fill = d3.scale.category20(); 
 
 var vis = d3.select("#chart")
   .append("svg:svg")
