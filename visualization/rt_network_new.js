@@ -1,5 +1,9 @@
 var w = 960,
     h = 500,
+    jnodes,
+    jlinks,
+    node,
+    link,
     fill = d3.scale.category20();
 
 var vis = d3.select("#chart")
@@ -8,16 +12,19 @@ var vis = d3.select("#chart")
     .attr("height", h);
 
 d3.json("retweet_network.json", function(json) {
+  jnodes = json.nodes;
+  jlinks = json.links;
+
   var force = d3.layout.force()
-      .charge(-125)
-      .linkDistance(50)
-      .nodes(json.nodes)
-      .links(json.links)
+      .charge(-8)
+      .linkDistance(15)
+      .nodes(jnodes)
+      .links(jlinks)
       .size([w, h])
       .start();
 
   var link = vis.selectAll("line.link")
-      .data(json.links)
+      .data(jlinks)
     .enter().append("svg:line")
       .attr("class", "link")
       .style("stroke-width", function(d) { return Math.sqrt(d.value); })
@@ -25,9 +32,10 @@ d3.json("retweet_network.json", function(json) {
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
+  
 
   var node = vis.selectAll("g.node")
-      .data(json.nodes)
+      .data(jnodes)
     .enter().append("svg:circle")
       .attr("class", "node")
       .attr("cx", function(d) { return d.x; })
@@ -41,14 +49,28 @@ d3.json("retweet_network.json", function(json) {
       .duration(1000)
       .style("opacity", 1);
 
-  force.on("tick", function() {
+  force.on("tick", function(e) {
+    var k = 6 * e.alpha;
+
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
     
+
+    // Move nodes to left or right based on group
+    jnodes.forEach(function(o, i) {
+      if (o.group == "right")
+      {
+        o.x += k;
+      }
+      else
+      {
+        o.x += -k;
+      }
+    });
+    
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
   });
 });
-
