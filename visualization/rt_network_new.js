@@ -22,12 +22,9 @@ $(document).ready(function() {
     jnodes = json.nodes;
     jlinks = json.links;
 
-    // Setup quick node dictionary
-    for(var i = 0; i < jnodes.length; i++)
-      nodeDict[i] = new Array();
 
     force = d3.layout.force()
-        .charge(-8)
+        .charge(-9)
         .linkDistance(15)
         .nodes(jnodes)
         .links(jlinks)
@@ -44,14 +41,27 @@ $(document).ready(function() {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
+    // Setup quick node dictionary
+    for(var i = 0; i < jnodes.length; i++)
+    {
+      nodeDict[i] = new Array();
+      jnodes[i].weight = 0;
+    }
+
     // Iterate over nodes and links to create dictionary
     for(var n = 0; n < jnodes.length; n++)
       for(var l = 0; l < jlinks.length; l++)
       {
         if(jnodes[n].index == jlinks[l].source.index)
+        {
           nodeDict[n].push(jlinks[l].target.index);
+          jnodes[n].weight++;
+        }
         else if(jnodes[n].index == jlinks[l].target.index)
+        {
           nodeDict[n].push(jlinks[l].source.index);
+          jnodes[n].weight++;
+        }
       }
 
     node = vis.selectAll("g.node")
@@ -60,7 +70,8 @@ $(document).ready(function() {
         .attr("class", "node")
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
-        .attr("r", 5)
+        .attr("r", function(d) { if (d.weight < 4) return 4; else return d.weight; })
+        //.attr("r", 5)
         .style("fill", function(d) {if (d.group == "right") return "#d62728";
           else return "#1f77b4"; })
         .on('mouseover', function (d) {
@@ -90,7 +101,9 @@ $(document).ready(function() {
         return "#7f7f7f";
     });
 
-    force.on("tick", function(e) {
+    force.on("tick", tick);
+    
+    function tick (e) {
       var k = 6 * e.alpha;
 
       link.attr("x1", function(d) { return d.source.x; })
@@ -121,31 +134,21 @@ $(document).ready(function() {
       
       node.attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
-    });
+    }
 
   });
-
-  /*
-  // Randomly update node
-  d3.select("body").on("click", function() {
-    jnodes.forEach(function(o, i) {
-      o.x += (Math.random() - .5) * 40;
-      o.y += (Math.random() - .5) * 40;
-    });
-    force.resume();
-  });
-  */
 
   // Toggle multiple foci
   $('input#foci').click(function () {
     if(multi_foci) multi_foci = false;
     else multi_foci = true;
+    force.resume();
   });
 
   // Set hash value
   $('input#hash').keyup(function(e) {
     hashTag =$(this).val()
-    force.tick();
+    force.resume();
   });
 
 });
