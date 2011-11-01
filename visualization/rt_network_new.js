@@ -9,7 +9,7 @@ var w = 962,
 
 var nodeDict = {};
 
-var hash_tag = "";
+var hashTag = "";
 var multi_foci = false;
 
 var vis = d3.select("#chart")
@@ -69,7 +69,7 @@ $(document).ready(function() {
           var connNodes = nodeDict[index];
           node.style("fill", function(d) {
             if(connNodes.indexOf(d.index) == -1 && d.index != index)
-              return "#7f7f7f"
+              return "#7f7f7f";
             else
             {
               if (d.group == "right") return "#d62728";
@@ -107,12 +107,34 @@ $(document).ready(function() {
             o.x += -k;
         });
       };
+
+      // Update node color based on hash tag
+      node.style("fill", function(d) {
+        if(!matchHash(d.tags, hashTag))
+          return "#7f7f7f";
+        else
+        {
+          if (d.group == "right") return "#d62728";
+          else return "#1f77b4";
+        }
+      });
       
       node.attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
     });
 
   });
+
+  /*
+  // Randomly update node
+  d3.select("body").on("click", function() {
+    jnodes.forEach(function(o, i) {
+      o.x += (Math.random() - .5) * 40;
+      o.y += (Math.random() - .5) * 40;
+    });
+    force.resume();
+  });
+  */
 
   // Toggle multiple foci
   $('input#foci').click(function () {
@@ -122,7 +144,18 @@ $(document).ready(function() {
 
   // Set hash value
   $('input#hash').keyup(function(e) {
-    hash_tag =$(this).val()
+    hashTag =$(this).val()
+    force.tick();
   });
 
 });
+
+function matchHash(tags, tag)
+{
+  for(var i = 0; i < tags.length; i++)
+  {
+    if(tags[i].indexOf(tag) != -1)
+      return true;
+  }
+  return false;
+}
