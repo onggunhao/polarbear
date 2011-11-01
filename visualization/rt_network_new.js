@@ -4,7 +4,9 @@ var w = 962,
     jlinks,
     node,
     link,
-    fill = d3.scale.category20(); 
+    fill = d3.scale.category20();
+
+var multi_foci = false;
 
 var vis = d3.select("#chart")
   .append("svg:svg")
@@ -46,10 +48,11 @@ $(document).ready(function() {
           else return "#1f77b4"; })
         .call(force.drag);
 
-    vis.style("opacity", 1e-6)
+    /*vis.style("opacity", 1e-6)
       .transition()
         .duration(1000)
         .style("opacity", 1);
+    */
 
     force.on("tick", function(e) {
       var k = 6 * e.alpha;
@@ -61,23 +64,30 @@ $(document).ready(function() {
       
 
       // Move nodes to left or right based on group
-      jnodes.forEach(function(o, i) {
-        if (o.group == "right")
-        {
-          o.x += k;
-        }
-        else
-        {
-          o.x += -k;
-        }
-      });
+      if (multi_foci) {
+        jnodes.forEach(function(o, i) {
+          if (o.group == "right")
+          {
+            o.x += k;
+          }
+          else
+          {
+            o.x += -k;
+          }
+
+        });
+      };
       
       node.attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
     });
-  });
-});
 
-$("input").click(function () {
-  alert('Handler for input called.');
+  });
+
+  // Toggle multiple foci
+  $('#foci').click(function () {
+    if(multi_foci) multi_foci = false;
+    else multi_foci = true;
+  });
+
 });
