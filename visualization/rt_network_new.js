@@ -11,6 +11,7 @@ var nodeDict = {};
 
 var hashTag = "";
 var multi_foci = false;
+var hover = false;
 
 var vis = d3.select("#chart")
   .append("svg:svg")
@@ -50,6 +51,7 @@ $(document).ready(function() {
 
     // Iterate over nodes and links to create dictionary
     for(var n = 0; n < jnodes.length; n++)
+    {
       for(var l = 0; l < jlinks.length; l++)
       {
         if(jnodes[n].index == jlinks[l].source.index)
@@ -63,6 +65,7 @@ $(document).ready(function() {
           jnodes[n].weight++;
         }
       }
+    }
 
     node = vis.selectAll("g.node")
         .data(jnodes)
@@ -71,7 +74,6 @@ $(document).ready(function() {
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
         .attr("r", function(d) { if (d.weight < 4) return 4; else return d.weight; })
-        //.attr("r", 5)
         .style("fill", function(d) {if (d.group == "right") return "#d62728";
           else return "#1f77b4"; })
         .on('mouseover', function (d) {
@@ -87,12 +89,14 @@ $(document).ready(function() {
               else return "#1f77b4";
             }
           })
+          hover = true;
         })
         .on('mouseout', function (d) {
           // Restore original color
           node.style("fill", function(d) {if (d.group == "right") return "#d62728";
             else return "#1f77b4"; })
-          })
+          hover = false;
+        })
         .call(force.drag);
 
     // Set node color based on hash tags
@@ -122,15 +126,18 @@ $(document).ready(function() {
       };
 
       // Update node color based on hash tag
-      node.style("fill", function(d) {
-        if(!matchHash(d.tags, hashTag))
-          return "#7f7f7f";
-        else
-        {
-          if (d.group == "right") return "#d62728";
-          else return "#1f77b4";
-        }
-      });
+      if (!hover)
+      {
+        node.style("fill", function(d) {
+          if(!matchHash(d.tags, hashTag))
+            return "#7f7f7f";
+          else
+          {
+            if (d.group == "right") return "#d62728";
+            else return "#1f77b4";
+          }
+        });
+      }
       
       node.attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
