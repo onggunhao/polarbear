@@ -80,30 +80,20 @@ $(document).ready(function() {
           // Grey nodes that are not connected
           var index = d.index;
           var connNodes = nodeDict[index];
-          node.style("fill", function(d) {
+          node.style("opacity", function(d) {
             if(connNodes.indexOf(d.index) == -1 && d.index != index)
-              return "#7f7f7f";
+              return 0.2;
             else
-            {
-              if (d.group == "right") return "#d62728";
-              else return "#1f77b4";
-            }
+              return 1.0;
           })
           hover = true;
         })
         .on('mouseout', function (d) {
           // Restore original color
-          node.style("fill", function(d) {if (d.group == "right") return "#d62728";
-            else return "#1f77b4"; })
+          node.style("opacity", 1.0)
           hover = false;
         })
         .call(force.drag);
-
-    // Set node color based on hash tags
-    node.style("fill", function(d) {
-      if(d.tags.length > 2)
-        return "#7f7f7f";
-    });
 
     force.on("tick", tick);
     
@@ -125,16 +115,15 @@ $(document).ready(function() {
         });
       };
 
-      // Update node color based on hash tag
+      // Update node opacity based on hash tag
       if (!hover)
       {
-        node.style("fill", function(d) {
+        node.style("opacity", function(d) {
           if(!matchHash(d.tags, hashTag))
-            return "#7f7f7f";
+            return 0.2;
           else
           {
-            if (d.group == "right") return "#d62728";
-            else return "#1f77b4";
+            return 1.0;
           }
         });
       }
