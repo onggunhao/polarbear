@@ -7,36 +7,43 @@
     <script type="text/javascript" src="d3/d3.layout.js"></script>
     <script type="text/javascript" src="jquery-1.6.4.js"></script>
     <link type="text/css" rel="stylesheet" href="d3/force.css"/>
+    <style>
+      form { display: block; }
+    </style>
   </head>
   <body>
     <div id="chart"></div>
     <script type="text/javascript" src="rt_network_new.js"></script>
     <div id="hash_tag">
       <form action="javascript:void(0);">
-        <div>
-          <label for="hash">Hash tag:</label>
-          <input type="text" name="hash" id="hash"/>
-        </div>
-        <div>
-          <label for="foci">Toggle Multiple Foci:</label>
-          <input type="checkbox" name="foci" id="foci"/>
-        </div>
-      <div>
-        <label for="tea">Tea Party (#teaparty)</label>
+        <label for="hash">Hash tag:</label>
+        <input type="text" name="hash" id="hash"/>
+      </form>
+      <form>
+        <label for="foci">Toggle Multiple Foci:</label>
+        <input type="checkbox" name="foci" id="foci"/>
+      </form>
+      <form title="Hash Tags">
         <input type="radio" name="hradio" id="tea"/>
-        <label for="tlot">Top Libertarians (#tlot)</label>
+        <label for="tea">Tea Party (#teaparty)</label>
+        <br>
         <input type="radio" name="hradio" id="tlot"/>
-        <label for="sgp">Smart Girl Politics (#sgp)</label>
+        <label for="tlot">Top Libertarians (#tlot)</label>
+        <br>
         <input type="radio" name="hradio" id="sgp"/>
-        <label for="votedem">Vote Democrat (#votedem)</label>
+        <label for="sgp">Smart Girl Politics (#sgp)</label>
+        <br>
         <input type="radio" name="hradio" id="votedem"/>
-        <label for="obama">Obama (#obama)</label>
+        <label for="votedem">Vote Democrat (#votedem)</label>
+        <br>
         <input type="radio" name="hradio" id="obama"/>
-        <label for="lgbt">LGBT (#lgbt)</label>
+        <label for="obama">Obama (#obama)</label>
+        <br>
         <input type="radio" name="hradio" id="lgbt"/>
-        <label for="dadt">DADT (#dadt)</label>
+        <label for="lgbt">LGBT (#lgbt)</label>
+        <br>
         <input type="radio" name="hradio" id="dadt"/>
-        </div>
+        <label for="dadt">DADT (#dadt)</label>
       </form>
     </div>
   </body>
