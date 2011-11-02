@@ -25,7 +25,7 @@
             <h2>Visualizing the New American Mind</h2>
         </div>
         <div id="subtitle">
-            <small>UNDERSTANDING THE POLARIZATION OF POLITICAL DISCOURSE ON TWITTER &nbsp; // &nbsp; JOSHUA VALDEZ & DANIEL ONG</small>
+            <small>&nbsp;&nbsp;THE POLARIZATION OF POLITICAL DISCOURSE ON TWITTER &nbsp; // &nbsp; JOSHUA VALDEZ &nbsp;& DANIEL ONG</small>
         </div>
     </div>
     <div id="content">  
@@ -33,26 +33,37 @@
             <script type="text/javascript" src="rt_network_new.js"></script>
         </div>
         <div id="sidebar">
+            <div id="sidebar-title">CONTROLS</div>
+            <div id="sidebar-content">
+                <div id="sidebar-content-label">Party Affliation</div>
+                <div id="sidebar-content-controls">
+                    <form>
+                        <input type="checkbox" name="foci" id="foci"/>
+                        <label for="foci">Cluster users by Party affliation</label>
+                    </form>
+                </div>
+                <br>
+                <div id="sidebar-content-label">Hashtag use</div>
+                    <div id="sidebar-content-controls">
+                        <div id="hash_tag">
+                          <form action="javascript:void(0);">
+                            <label for="hash">See specific hashtag usage:</label>
+                            <br>
+                            <div id="hashtag">#<input type="text" name="hash" id="hash"/></div>
+                            <div id="hashtag-list">(e.g. #lgbt, #tlot, #votedem, #sgp, #dadt, #teaparty, #obama)</div>
+                          </form>
+                        </div>
+                    </div>
+                </div>
             <div id="sidebar-title">ABOUT</div>
             <div id="sidebar-content">
                 <p>This network represents a random 1% sample of <a href="http://cnets.indiana.edu/groups/nan/truthy">tweets collected</a> during the 2010 Congressional midterm elections.</p>
-            </div>
-            <div id="sidebar-title">CONTROLS</div>
-            <div id="sidebar-content">
-                <form>
-                    <input type="checkbox" name="foci" id="foci"/>
-                    <label for="foci">Cluster by Party affliation</label>
-                </form>
                 <br>
-                <div id="hash_tag">
-                  <form action="javascript:void(0);">
-                    <label for="hash">Hash tag:</label>
-                    <br><input type="text" name="hash" id="hash"/>
-                  </form>
-                  
-                </div>
+                <p>Nodes represent twitter users. Red nodes represent Republicans while blue nodes represent Democrats. Edges represent some form of interaction (RT or @mention) between the 2 users. </p>
             </div>
-        </div>
+            
+        </div>       
     </div>
   </body>
+  <div id="footer">This visualization was presented by Josh Valdez and Daniel Ong, as part of Jeffrey Heer's Data Visualization course at Stanford</div>
 </html>

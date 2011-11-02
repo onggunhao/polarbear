@@ -63,7 +63,7 @@ a img {border: 0;}
 }
 
 body {
-	font: 12px/17px Georgia, serif;
+	font: 12px/19px "Quattrocento Sans", serif;
 }
 
 .small, small {
@@ -103,12 +103,43 @@ body {
 
 #sidebar-content {
     padding-top: 10px;
-    padding-right: 20px;
+    padding-right: 25px;
     padding-left: 20px;
+    padding-bottom:10px;
+}
+
+#sidebar-content-controls {
+    margin-top:5px;
+    font-family: "Quattrocento Sans";
+    vertical-align: bottom;
+    position: relative;
+    padding-left: 50px;
+}
+
+#sidebar-content .checkbox {
+    vertical-align:bottom;
+    
 }
 
 #content {
     margin-top: 20px; 
+}
+
+#hashtag {
+    font-size: 20px;
+    font-family: Prata;
+}
+
+#hashtag-list {
+    font-size:11px;
+    color: #555555;
+}
+
+#sidebar-content-label {
+	font-size: 13px;
+	line-height: 18px;
+	font-family: Prata;
+    margin-bottom: 8px;
 }
 
 /* D3.js style */
@@ -124,6 +155,10 @@ body {
 
 #footer {
     clear:both;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 20px;
+    text-align:center;
 }
 
 /* Selection colours (easy to forget) */
@@ -146,7 +181,7 @@ px      68    160    252    344    436    528    620    712    804    896    */
 
 body {
 	width: 940px;
-    padding: 25px 0px 84px 48px;    
+    padding: 25px 0px 0px 48px;    
 	color: rgb(60,60,60);
 	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
     border-right: 1px dotted #999999;
