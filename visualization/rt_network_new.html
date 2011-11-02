@@ -6,25 +6,53 @@
     <script type="text/javascript" src="d3/d3.geom.js"></script>
     <script type="text/javascript" src="d3/d3.layout.js"></script>
     <script type="text/javascript" src="jquery-1.6.4.js"></script>
+    <!-- Stylesheet links -->
     <link type="text/css" rel="stylesheet" href="d3/force.css"/>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <!-- Google Font APIs -->
+    <link href='http://fonts.googleapis.com/css?family=Prata' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans' rel='stylesheet' type='text/css'>
+<style>
+    
+    
     <style>
       form { display: block; }
     </style>
   </head>
   <body>
-    <div id="chart"></div>
-    <script type="text/javascript" src="rt_network_new.js"></script>
-    <div id="hash_tag">
-      <form action="javascript:void(0);">
-        <label for="hash">Hash tag:</label>
-        <input type="text" name="hash" id="hash"/>
-      </form>
-      <form>
-        <label for="foci">Toggle Polarization:</label>
-        <input type="checkbox" name="foci" id="foci"/>
-      </form>
-    <div>
-      <b>Suggest Tags for search here</b>
+    <div id="header">
+        <div id="title">
+            <h2>Visualizing the New American Mind</h2>
+        </div>
+        <div id="subtitle">
+            <small>UNDERSTANDING THE POLARIZATION OF POLITICAL DISCOURSE ON TWITTER &nbsp; // &nbsp; JOSHUA VALDEZ & DANIEL ONG</small>
+        </div>
+    </div>
+    <div id="content">  
+        <div id="chart">
+            <script type="text/javascript" src="rt_network_new.js"></script>
+        </div>
+        <div id="sidebar">
+            <div id="sidebar-title">ABOUT</div>
+            <div id="sidebar-content">
+                <p>This network represents a random 1% sample of <a href="http://cnets.indiana.edu/groups/nan/truthy">tweets collected</a> during the 2010 Congressional midterm elections.</p>
+            </div>
+            <div id="sidebar-title">CONTROLS</div>
+            <div id="sidebar-content">
+                <form>
+                    <input type="checkbox" name="foci" id="foci"/>
+                    <label for="foci">Cluster by Party affliation</label>
+                </form>
+                <br>
+                <div id="hash_tag">
+                  <form action="javascript:void(0);">
+                    <label for="hash">Hash tag:</label>
+                    <br><input type="text" name="hash" id="hash"/>
+                  </form>
+                  
+                </div>
+            </div>
+        </div>
     </div>
   </body>
 </html>

@@ -1,4 +1,4 @@
-var w = 962,
+var w = 650,
     h = 500,
     jnodes,
     jlinks,
@@ -73,7 +73,8 @@ $(document).ready(function() {
         .attr("class", "node")
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
-        .attr("r", function(d) { if (d.weight < 4) return 4; else return d.weight; })
+        .attr("r", function(d) { if (d.weight < 4) return 4; else return 4; })
+        //.attr("r", function(d) { if (d.weight < 4) return 4; else return d.weight; })
         .style("fill", function(d) {if (d.group == "right") return "#d62728";
           else return "#1f77b4"; })
         .on('mouseover', function (d) {
@@ -82,7 +83,7 @@ $(document).ready(function() {
           var connNodes = nodeDict[index];
           node.style("opacity", function(d) {
             if(connNodes.indexOf(d.index) == -1 && d.index != index)
-              return 0.2;
+              return 1.0;
             else
               return 1.0;
           })
@@ -119,6 +120,14 @@ $(document).ready(function() {
       if (!hover)
       {
         node.style("opacity", function(d) {
+          if(!matchHash(d.tags, hashTag))
+            return 0.2;
+          else
+          {
+            return 1.0;
+          }
+        });
+        link.style("opacity", function(d) {
           if(!matchHash(d.tags, hashTag))
             return 0.2;
           else
