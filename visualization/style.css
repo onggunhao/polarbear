@@ -131,6 +131,8 @@ body {
 
 #hashtag-list {
     font-size:11px;
+    margin-top: 5px;
+    line-height: 14px;
     color: #555555;
 }
 
